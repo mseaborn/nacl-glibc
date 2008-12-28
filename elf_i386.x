@@ -72,7 +72,8 @@ SECTIONS
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);
-  .rodata         : { *(.rodata .rodata.* .gnu.linkonce.r.*) }
+  . = ALIGN(CONSTANT (MAXPAGESIZE)); /* nacl wants page alignment */
+  .rodata         : { *(.rodata .rodata.* .gnu.linkonce.r.*) } :segrodata
   .rodata1        : { *(.rodata1) }
   .eh_frame_hdr : { *(.eh_frame_hdr) }
   .eh_frame       : ONLY_IF_RO { KEEP (*(.eh_frame)) }
@@ -88,7 +89,7 @@ SECTIONS
     PROVIDE (__tls_template_start = .);
     *(.tdata .tdata.* .gnu.linkonce.td.*)
     PROVIDE (__tls_template_tdata_end = .);
-  } :segrodata
+  }
   .tbss		  : { *(.tbss .tbss.* .gnu.linkonce.tb.*) *(.tcommon) }
   PROVIDE (__tls_template_end = .);
   .preinit_array     :
