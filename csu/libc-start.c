@@ -125,6 +125,7 @@ LIBC_START_MAIN (int (*main) (int, char **, char ** MAIN_AUXVEC_DECL),
 #  endif
   _dl_aux_init (auxvec);
 # endif
+#if 0
 # ifdef DL_SYSDEP_OSCHECK
   if (!__libc_multiple_libcs)
     {
@@ -133,6 +134,7 @@ LIBC_START_MAIN (int (*main) (int, char **, char ** MAIN_AUXVEC_DECL),
       DL_SYSDEP_OSCHECK (__libc_fatal);
     }
 # endif
+#endif
 
   /* Initialize the thread library at least a bit since the libgcc
      functions are using thread functions if these are available and

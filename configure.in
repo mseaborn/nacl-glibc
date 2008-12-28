@@ -602,7 +602,7 @@ changequote([,])dnl
 
 # Find what sysdep directories exist.
 sysnames_add_ons=
-sysnames=
+sysnames="sysdeps/nacl "
 for b in $base ''; do
   for m0 in $mach ''; do
     for v in /$vendor ''; do
