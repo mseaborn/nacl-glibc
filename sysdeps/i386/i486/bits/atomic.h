@@ -107,6 +107,14 @@ typedef uintmax_t uatomic_max_t;
 			 "i" (offsetof (tcbhead_t, multiple_threads)));	      \
      ret; })
 
+#if 1
+#define __arch_c_compare_and_exchange_val_32_acq(mem, newval, oldval) \
+  ({ __typeof (*mem) ret;						      \
+     __asm __volatile (LOCK_PREFIX "cmpxchgl %2, %1"			      \
+		       : "=a" (ret), "=m" (*mem)			      \
+		       : "r" (newval), "m" (*mem), "0" (oldval));	      \
+     ret; })
+#else
 #define __arch_c_compare_and_exchange_val_32_acq(mem, newval, oldval) \
   ({ __typeof (*mem) ret;						      \
      __asm __volatile ("cmpl $0, %%gs:%P5\n\t"                                \
@@ -117,6 +125,7 @@ typedef uintmax_t uatomic_max_t;
 		       : "r" (newval), "m" (*mem), "0" (oldval),	      \
 			 "i" (offsetof (tcbhead_t, multiple_threads)));	      \
      ret; })
+#endif
 
 /* XXX We do not really need 64-bit compare-and-exchange.  At least
    not in the moment.  Using it would mean causing portability
