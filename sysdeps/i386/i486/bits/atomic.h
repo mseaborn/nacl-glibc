@@ -264,8 +264,13 @@ typedef uintmax_t uatomic_max_t;
   __arch_exchange_and_add_body (LOCK_PREFIX, __arch, mem, value)
 #endif
 
+#if 1
+#define __arch_exchange_and_add_cprefix \
+  "lock\n"
+#else
 #define __arch_exchange_and_add_cprefix \
   "cmpl $0, %%gs:%P4\n\tje 0f\n\tlock\n0:\t"
+#endif
 
 #define catomic_exchange_and_add(mem, value) \
   __arch_exchange_and_add_body (__arch_exchange_and_add_cprefix, __arch_c,    \
@@ -309,8 +314,9 @@ typedef uintmax_t uatomic_max_t;
 #define atomic_add(mem, value) \
   __arch_add_body (LOCK_PREFIX, __arch, mem, value)
 
-#define __arch_add_cprefix \
-  "cmpl $0, %%gs:%P3\n\tje 0f\n\tlock\n0:\t"
+/* #define __arch_add_cprefix \ */
+/*   "cmpl $0, %%gs:%P3\n\tje 0f\n\tlock\n0:\t" */
+#define __arch_add_cprefix LOCK_PREFIX
 
 #define catomic_add(mem, value) \
   __arch_add_body (__arch_add_cprefix, __arch_c, mem, value)
@@ -385,8 +391,9 @@ typedef uintmax_t uatomic_max_t;
 
 #define atomic_increment(mem) __arch_increment_body (LOCK_PREFIX, __arch, mem)
 
-#define __arch_increment_cprefix \
-  "cmpl $0, %%gs:%P2\n\tje 0f\n\tlock\n0:\t"
+/* #define __arch_increment_cprefix \ */
+/*   "cmpl $0, %%gs:%P2\n\tje 0f\n\tlock\n0:\t" */
+#define __arch_increment_cprefix LOCK_PREFIX
 
 #define catomic_increment(mem) \
   __arch_increment_body (__arch_increment_cprefix, __arch_c, mem)
@@ -442,8 +449,9 @@ typedef uintmax_t uatomic_max_t;
 
 #define atomic_decrement(mem) __arch_decrement_body (LOCK_PREFIX, __arch, mem)
 
-#define __arch_decrement_cprefix \
-  "cmpl $0, %%gs:%P2\n\tje 0f\n\tlock\n0:\t"
+/* #define __arch_decrement_cprefix \ */
+/*   "cmpl $0, %%gs:%P2\n\tje 0f\n\tlock\n0:\t" */
+#define __arch_decrement_cprefix LOCK_PREFIX
 
 #define catomic_decrement(mem) \
   __arch_decrement_body (__arch_decrement_cprefix, __arch_c, mem)
@@ -551,7 +559,8 @@ typedef uintmax_t uatomic_max_t;
 
 #define atomic_or(mem, mask) __arch_or_body (LOCK_PREFIX, mem, mask)
 
-#define __arch_or_cprefix \
-  "cmpl $0, %%gs:%P3\n\tje 0f\n\tlock\n0:\t"
+/* #define __arch_or_cprefix \ */
+/*   "cmpl $0, %%gs:%P3\n\tje 0f\n\tlock\n0:\t" */
+#define __arch_or_cprefix LOCK_PREFIX
 
 #define catomic_or(mem, mask) __arch_or_body (__arch_or_cprefix, mem, mask)
