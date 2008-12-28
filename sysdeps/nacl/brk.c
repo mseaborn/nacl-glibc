@@ -13,7 +13,8 @@ int __nacl_write(int desc, void const *buf, size_t count);
 int __brk (void *addr)
 {
   __nacl_write(1, "hi there!\n", 10);
-  return __NaClSysBrk(addr);
+  __curbrk = __NaClSysBrk(addr);
+  return 0;
   //__set_errno (ENOMEM);
   //return -1;
 }
