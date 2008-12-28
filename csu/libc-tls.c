@@ -106,6 +106,10 @@ init_static_tls (size_t memsz, size_t align)
   GL(dl_tls_static_nelem) = GL(dl_tls_max_dtv_idx);
 }
 
+void *__tls_template_start;
+void *__tls_template_tdata_end;
+void *__tls_template_end;
+
 void
 __libc_setup_tls (size_t tcbsize, size_t tcbalign)
 {
@@ -118,6 +122,7 @@ __libc_setup_tls (size_t tcbsize, size_t tcbalign)
   size_t tcb_offset;
   ElfW(Phdr) *phdr;
 
+#if 0
   /* Look through the TLS segment if there is any.  */
   if (_dl_phdr != NULL)
     for (phdr = _dl_phdr; phdr < &_dl_phdr[_dl_phnum]; ++phdr)
@@ -132,6 +137,11 @@ __libc_setup_tls (size_t tcbsize, size_t tcbalign)
 	    max_align = phdr->p_align;
 	  break;
 	}
+#endif
+  initimage = (void *) &__tls_template_start;
+  memsz = (size_t) &__tls_template_end - (size_t) &__tls_template_start;
+  filesz = (size_t) &__tls_template_tdata_end - (size_t) &__tls_template_start;
+  align = 4;
 
   /* We have to set up the TCB block which also (possibly) contains
      'errno'.  Therefore we avoid 'malloc' which might touch 'errno'.

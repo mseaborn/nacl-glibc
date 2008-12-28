@@ -289,6 +289,7 @@ _dl_non_dynamic_init (void)
     _dl_platformlen = strlen (_dl_platform);
 
   /* Scan for a program header telling us the stack is nonexecutable.  */
+#if 0
   if (_dl_phdr != NULL)
     for (uint_fast16_t i = 0; i < _dl_phnum; ++i)
       if (_dl_phdr[i].p_type == PT_GNU_STACK)
@@ -296,6 +297,7 @@ _dl_non_dynamic_init (void)
 	  _dl_stack_flags = _dl_phdr[i].p_flags;
 	  break;
 	}
+#endif
 }
 
 
