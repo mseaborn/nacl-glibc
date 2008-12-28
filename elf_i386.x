@@ -68,6 +68,7 @@ SECTIONS
   .fini           : SUBALIGN(32)
   {
     KEEP (*(.fini))
+    KEEP (*(__libc_freeres_fn))
   } =0x90909090
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
