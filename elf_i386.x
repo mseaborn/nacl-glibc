@@ -10,7 +10,6 @@ PHDRS
 {
   headers PT_PHDR FILEHDR PHDRS ;  /* put the headers in a non-loadable seg */
   segtext    PT_LOAD FLAGS(5) ;       /* read + execute */
-  segtls     PT_TLS  FLAGS(4) ;       /* read */
   segrodata  PT_LOAD FLAGS(4) ;       /* read */
   segdata    PT_LOAD FLAGS(6) ;       /* read + write */
   /* TODO: do we need a stack? */
@@ -18,10 +17,7 @@ PHDRS
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */
-/*   PROVIDE (__executable_start = 0x10000); . = 0x100b4; */
-  PROVIDE (__executable_start = 0x10000); . = 0x10000
-/*  + SIZEOF_HEADERS */
-;
+  PROVIDE (__executable_start = 0x10000); . = 0x10000;
   .interp         : { *(.interp) }
   .note.gnu.build-id : { *(.note.gnu.build-id) }
   .hash           : { *(.hash) }
@@ -92,7 +88,7 @@ SECTIONS
     PROVIDE (__tls_template_start = .);
     *(.tdata .tdata.* .gnu.linkonce.td.*)
     PROVIDE (__tls_template_tdata_end = .);
-  } :segtls :segrodata
+  } :segrodata
   .tbss		  : { *(.tbss .tbss.* .gnu.linkonce.tb.*) *(.tcommon) }
   PROVIDE (__tls_template_end = .);
   .preinit_array     :
