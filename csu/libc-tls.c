@@ -110,7 +110,8 @@ void *__tls_template_start;
 void *__tls_template_tdata_end;
 void *__tls_template_end;
 
-int tls_init(void const *buf, size_t size);
+__asm__(".global __gnacl_tls_init; __gnacl_tls_init = 0x1a40 ");
+int __gnacl_tls_init(void const *buf, size_t size);
 
 void
 __libc_setup_tls (size_t tcbsize, size_t tcbalign)
@@ -198,7 +199,7 @@ __libc_setup_tls (size_t tcbsize, size_t tcbalign)
   INSTALL_DTV ((char *) tlsblock + tcb_offset, static_dtv);
 
   //const char *lossage = TLS_INIT_TP ((char *) tlsblock + tcb_offset, 0);
-  tls_init (tlsblock + tcb_offset, 100);
+  __gnacl_tls_init (tlsblock + tcb_offset, 100);
   tcbhead_t *head = (void *) tlsblock + tcb_offset;
   head->tcb = head;
   head->self = head;
