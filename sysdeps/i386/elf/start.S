@@ -82,6 +82,7 @@ _start:
 	   which grow downwards).  */
 	pushl %esp
 
+	movl $0, %edx
 	pushl %edx		/* Push address of the shared library
 				   termination function.  */
 
