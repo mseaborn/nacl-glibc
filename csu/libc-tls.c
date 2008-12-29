@@ -110,6 +110,8 @@ void *__tls_template_start;
 void *__tls_template_tdata_end;
 void *__tls_template_end;
 
+int tls_init(void const *buf, size_t size);
+
 void
 __libc_setup_tls (size_t tcbsize, size_t tcbalign)
 {
@@ -195,8 +197,14 @@ __libc_setup_tls (size_t tcbsize, size_t tcbalign)
 #if TLS_TCB_AT_TP
   INSTALL_DTV ((char *) tlsblock + tcb_offset, static_dtv);
 
-  const char *lossage = TLS_INIT_TP ((char *) tlsblock + tcb_offset, 0);
+  //const char *lossage = TLS_INIT_TP ((char *) tlsblock + tcb_offset, 0);
+  tls_init (tlsblock + tcb_offset, 100);
+  tcbhead_t *head = (void *) tlsblock + tcb_offset;
+  head->tcb = head;
+  head->self = head;
+  const char *lossage = NULL;
 #elif TLS_DTV_AT_TP
+# error "not supported"
   INSTALL_DTV (tlsblock, static_dtv);
   const char *lossage = TLS_INIT_TP (tlsblock, 0);
 #else
