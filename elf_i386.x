@@ -53,18 +53,18 @@ SECTIONS
   .rela.bss       : { *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*) }
   .rel.plt        : { *(.rel.plt) }
   .rela.plt       : { *(.rela.plt) }
-  .init           :
-  {
-    KEEP (*(.init))
-  } :segtext =0x90909090
   .plt            : { *(.plt) }
+  /* I couldn't get ld to add NOP-padding between output sections
+     (only between input sections within an output section),
+     so I have simply combined .init and .text */
   .text           : SUBALIGN(32)
   {
+    KEEP (*(.init))
     *(.text .stub .text.* .gnu.linkonce.t.*)
     KEEP (*(.text.*personality*))
     /* .gnu.warning sections are handled specially by elf32.em.  */
     *(.gnu.warning)
-  } =0x90909090
+  } :segtext =0x90909090
   .fini           : SUBALIGN(32)
   {
     KEEP (*(.fini))
