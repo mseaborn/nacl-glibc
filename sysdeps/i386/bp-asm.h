@@ -117,7 +117,7 @@
 /* Unbounded pointer return values are passed back in the register %eax.  */
 #   define RTN_SIZE 0
 /* Use simple return instruction for unbounded pointer values.  */
-#   define RET_PTR ret
+#   define RET_PTR popl %ecx; nacljmp %ecx
 /* Don't maintain frame pointer chain for leaf assembler functions.  */
 #   define ENTER
 #   define LEAVE
