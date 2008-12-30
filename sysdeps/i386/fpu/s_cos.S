@@ -13,7 +13,7 @@ ENTRY(__cos)
 	fnstsw	%ax
 	testl	$0x400,%eax
 	jnz	1f
-	ret
+	popl %ecx; nacljmp %ecx
 	.align ALIGNARG(4)
 1:	fldpi
 	fadd	%st(0)
@@ -24,6 +24,6 @@ ENTRY(__cos)
 	jnz	2b
 	fstp	%st(1)
 	fcos
-	ret
+	popl %ecx; nacljmp %ecx
 END (__cos)
 weak_alias (__cos, cos)

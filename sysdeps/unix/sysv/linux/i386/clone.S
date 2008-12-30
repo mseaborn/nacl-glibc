@@ -117,7 +117,7 @@ ENTRY (BP_SYM (__clone))
 	jz	L(thread_start)
 
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 
 L(thread_start):
 	cfi_startproc;

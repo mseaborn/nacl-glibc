@@ -28,6 +28,6 @@ ENTRY(__ceill)
 	fldcw	4(%esp)			/* restore original control word */
 
 	addl	$8,%esp
-	ret
+	popl %ecx; nacljmp %ecx
 END (__ceill)
 weak_alias (__ceill, ceill)

@@ -79,7 +79,7 @@ ENTRY(__getcontext)
 	/* All done, return 0 for success.  */
 	xorl	%eax, %eax
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END(__getcontext)
 
 weak_alias (__getcontext, getcontext)

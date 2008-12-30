@@ -11,6 +11,6 @@ ENTRY(__atanf)
 	flds	4(%esp)
 	fld1
 	fpatan
-	ret
+	popl %ecx; nacljmp %ecx
 END (__atanf)
 weak_alias (__atanf, atanf)

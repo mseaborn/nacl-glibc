@@ -151,5 +151,5 @@ L(end2):
 	cfi_restore (edi)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__mpn_add_n))

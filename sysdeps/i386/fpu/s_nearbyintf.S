@@ -24,6 +24,6 @@ ENTRY(__nearbyintf)
 	cfi_adjust_cfa_offset (-4)
 	popl	%eax
 	cfi_adjust_cfa_offset (-4)
-	ret
+	popl %ecx; nacljmp %ecx
 END (__nearbyintf)
 weak_alias (__nearbyintf, nearbyintf)

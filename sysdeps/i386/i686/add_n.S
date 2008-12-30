@@ -32,7 +32,7 @@
 	.text
 #ifdef PIC
 L(1):	addl    (%esp), %eax
-	ret
+	popl %ecx; nacljmp %ecx
 #endif
 ENTRY (BP_SYM (__mpn_add_n))
 	ENTER
@@ -118,5 +118,5 @@ L(oop):	movl	(%esi),%eax
 	cfi_restore (edi)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__mpn_add_n))

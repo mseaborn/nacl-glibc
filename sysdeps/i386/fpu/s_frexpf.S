@@ -85,6 +85,6 @@ ENTRY (BP_SYM (__frexpf))
 	movl	%ecx, (%eax)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__frexpf))
 weak_alias (BP_SYM (__frexpf), BP_SYM (frexpf))

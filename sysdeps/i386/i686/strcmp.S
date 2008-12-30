@@ -50,7 +50,7 @@ L(oop):	movb	(%ecx), %al
 	CHECK_BOUNDS_HIGH (%ecx, STR1(%esp), jbe)
 	CHECK_BOUNDS_HIGH (%edx, STR2(%esp), jbe)
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 
 #ifndef __BOUNDED_POINTERS__
 L(neq):	movl	$1, %eax
@@ -67,6 +67,6 @@ L(chk):	CHECK_BOUNDS_HIGH (%ecx, STR1(%esp), jb)
 #endif
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (strcmp))
 libc_hidden_builtin_def (strcmp)

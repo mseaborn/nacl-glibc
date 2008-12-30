@@ -112,5 +112,5 @@ ENTRY(__ieee754_atanh)
 	cmpl	$0, 4(%esp)
 	je	7b
 6:	fldl	4(%esp)
-	ret
+	popl %ecx; nacljmp %ecx
 END(__ieee754_atanh)

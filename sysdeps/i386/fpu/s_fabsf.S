@@ -4,6 +4,6 @@
 ENTRY(__fabsf)
 	flds	4(%esp)
 	fabs
-	ret
+	popl %ecx; nacljmp %ecx
 END(__fabsf)
 weak_alias (__fabsf, fabsf)

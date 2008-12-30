@@ -100,7 +100,7 @@ notb:
 # endif
 #endif
 	movl $-1, %eax
-	ret
+	popl %ecx; nacljmp %ecx
 
 #undef	__syscall_error
 END (__syscall_error)

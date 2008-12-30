@@ -39,7 +39,7 @@
 	.align 16
 _dl_tlsdesc_return:
 	movl	4(%eax), %eax
-	ret
+	popl %ecx; nacljmp %ecx
 	cfi_endproc
 	.size	_dl_tlsdesc_return, .-_dl_tlsdesc_return
 
@@ -61,7 +61,7 @@ _dl_tlsdesc_return:
 _dl_tlsdesc_undefweak:
 	movl	4(%eax), %eax
 	subl	%gs:0, %eax
-	ret
+	popl %ecx; nacljmp %ecx
 	cfi_endproc
 	.size	_dl_tlsdesc_undefweak, .-_dl_tlsdesc_undefweak
 
@@ -123,7 +123,7 @@ _dl_tlsdesc_dynamic:
 	movl	24(%esp), %edx
 	addl	$28, %esp
 	cfi_adjust_cfa_offset (-28)
-	ret
+	popl %ecx; nacljmp %ecx
 	.p2align 4,,7
 .Lslow:
 	cfi_adjust_cfa_offset (28)

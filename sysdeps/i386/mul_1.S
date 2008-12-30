@@ -92,6 +92,6 @@ L(oop):
 	cfi_restore (res_ptr)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 #undef size
 END (BP_SYM (__mpn_mul_1))

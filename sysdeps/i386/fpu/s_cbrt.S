@@ -200,6 +200,6 @@ ENTRY(__cbrt)
 
 	/* Return the argument.  */
 1:	fldl	4(%esp)
-	ret
+	popl %ecx; nacljmp %ecx
 END(__cbrt)
 weak_alias (__cbrt, cbrt)

@@ -93,7 +93,7 @@ L(1):	movl	(%esi,%edx,4),%eax
 	cfi_restore (edi)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 
 L(end):	shll	%cl,%ebx		/* compute least significant limb */
 	movl	%ebx,(%edi)		/* store it */
@@ -109,5 +109,5 @@ L(end):	shll	%cl,%ebx		/* compute least significant limb */
 	cfi_restore (edi)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__mpn_lshift))

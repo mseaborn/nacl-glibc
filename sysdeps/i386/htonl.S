@@ -31,7 +31,7 @@ ENTRY (htonl)
 	rorw	$8, %ax
 	rorl	$16, %eax
 	rorw	$8, %ax
-	ret
+	popl %ecx; nacljmp %ecx
 END (htonl)
 
 weak_alias (htonl, ntohl)

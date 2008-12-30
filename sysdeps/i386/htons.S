@@ -30,7 +30,7 @@ ENTRY (htons)
 	movl	4(%esp), %eax
 	andl	$0xffff, %eax
 	rorw	$8, %ax
-	ret
+	popl %ecx; nacljmp %ecx
 END (htons)
 
 weak_alias (htons, ntohs)

@@ -100,7 +100,7 @@ L(skip):
 
 	/* Successful; return the syscall's value.  */
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 
 PSEUDO_END (__mmap)
 

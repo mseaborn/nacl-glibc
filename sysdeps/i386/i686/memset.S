@@ -99,7 +99,7 @@ ENTRY (BP_SYM (memset))
 
 	LEAVE
 #if BZERO_P
-	ret
+	popl %ecx; nacljmp %ecx
 #else
 	RET_PTR
 #endif

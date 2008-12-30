@@ -78,7 +78,7 @@ save_ptr:
 
 #if !defined USE_AS_STRTOK_R && defined PIC
 0:	movl (%esp), %ebx
-	ret
+	popl %ecx; nacljmp %ecx
 #endif
 
 ENTRY (BP_SYM (FUNCTION))

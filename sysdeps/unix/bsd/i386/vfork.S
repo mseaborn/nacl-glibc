@@ -34,7 +34,7 @@ ENTRY (__vfork)
 	   R0&-1==R0, and the child gets R0&0==0.  */
 	decl r1
 	andl r1, r0
-	ret
+	popl %ecx; nacljmp %ecx
 libc_hidden_def (__vfork)
 
 weak_alias (__vfork, vfork)

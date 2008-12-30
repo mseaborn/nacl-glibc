@@ -25,4 +25,4 @@ ENTRY (syscall)
 	pushl %ecx		/* Push back return address.  */
 	.byte 0x9a, 0, 0, 0, 0, 7, 0 /* lcall $7, $0 -- gas bug */
 	jb JUMPTARGET(syscall_error)
-	ret
+	popl %ecx; nacljmp %ecx

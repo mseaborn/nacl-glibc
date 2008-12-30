@@ -31,6 +31,6 @@ ENTRY(__truncl)
 	frndint
 	fldcw	4(%esp)
 	addl	$8, %esp
-	ret
+	popl %ecx; nacljmp %ecx
 END(__truncl)
 weak_alias (__truncl, truncl)

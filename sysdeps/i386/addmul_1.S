@@ -93,5 +93,5 @@ L(oop):
 	cfi_restore (res_ptr)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__mpn_addmul_1))

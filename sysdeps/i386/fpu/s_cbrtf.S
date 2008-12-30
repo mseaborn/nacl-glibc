@@ -177,6 +177,6 @@ ENTRY(__cbrtf)
 
 	/* Return the argument.  */
 1:	flds	4(%esp)
-	ret
+	popl %ecx; nacljmp %ecx
 END(__cbrtf)
 weak_alias (__cbrtf, cbrtf)

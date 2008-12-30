@@ -124,7 +124,7 @@ _start:
 
 #ifdef SHARED
 1:	movl	(%esp), %ebx
-	ret
+	popl %ecx; nacljmp %ecx
 #endif
 
 /* To fulfill the System V/i386 ABI we need this symbol.  Yuck, it's so

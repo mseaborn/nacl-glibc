@@ -50,7 +50,7 @@
 	.type	__i686.get_pc_thunk.bx,@function
 __i686.get_pc_thunk.bx:
 	movl	(%esp), %ebx
-	ret
+	popl %ecx; nacljmp %ecx
 
         .text
 	ALIGN (4)

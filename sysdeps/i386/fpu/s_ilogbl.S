@@ -30,10 +30,10 @@ ENTRY(__ilogbl)
 	popl	%eax
 	cfi_adjust_cfa_offset (-4)
 
-	ret
+	popl %ecx; nacljmp %ecx
 
 1:	fstp	%st
 	movl	$0x7fffffff, %eax
-	ret
+	popl %ecx; nacljmp %ecx
 END (__ilogbl)
 weak_alias (__ilogbl, ilogbl)

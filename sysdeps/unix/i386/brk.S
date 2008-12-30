@@ -41,7 +41,7 @@ L(here): popl %ecx
 	movl %eax, C_SYMBOL_NAME(__curbrk)
 #endif
 	xorl %eax, %eax
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END (__brk)
 
 weak_alias (__brk, brk)

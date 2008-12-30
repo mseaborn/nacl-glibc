@@ -15,5 +15,5 @@ ENTRY(__ieee754_remainder)
 	sahf
 	jp	1b
 	fstp	%st(1)
-	ret
+	popl %ecx; nacljmp %ecx
 END (__ieee754_remainder)

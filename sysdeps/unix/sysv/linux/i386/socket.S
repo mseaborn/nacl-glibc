@@ -70,7 +70,7 @@ ENTRY (__socket)
 
 	/* Successful; return the syscall's value.  */
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 
 
 #if defined NEED_CANCELLATION && defined CENABLE
@@ -115,7 +115,7 @@ L(pseudo_end):
 	jae SYSCALL_ERROR_LABEL
 
 	/* Successful; return the syscall's value.  */
-	ret
+	popl %ecx; nacljmp %ecx
 #endif
 PSEUDO_END (__socket)
 

@@ -76,5 +76,5 @@ ENTRY (epoll_pwait)
 	jmp SYSCALL_ERROR_LABEL
 #endif
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END (epoll_pwait)

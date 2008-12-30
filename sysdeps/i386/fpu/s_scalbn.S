@@ -12,7 +12,7 @@ ENTRY(__scalbn)
 	fldl	4(%esp)
 	fscale
 	fstp	%st(1)
-	ret
+	popl %ecx; nacljmp %ecx
 END (__scalbn)
 weak_alias (__scalbn, scalbn)
 strong_alias (__scalbn, __scalbln)

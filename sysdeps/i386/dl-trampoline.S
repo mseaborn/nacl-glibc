@@ -184,7 +184,7 @@ _dl_runtime_profile:
 	fldt 8(%esp)
 	addl $60, %esp
 	cfi_adjust_cfa_offset (-60)
-	ret
+	popl %ecx; nacljmp %ecx
 	cfi_endproc
 	.size _dl_runtime_profile, .-_dl_runtime_profile
 #endif

@@ -35,6 +35,6 @@ ENTRY(__fmaxf)
 
 	fstp	%st(1)
 
-	ret
+	popl %ecx; nacljmp %ecx
 END(__fmaxf)
 weak_alias (__fmaxf, fmaxf)

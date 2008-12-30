@@ -32,7 +32,7 @@ ENTRY(__ieee754_expf)
 	faddp				/* 2^(fract(x * log2(e))) */
 	fscale				/* e^x */
 	fstp	%st(1)
-	ret
+	popl %ecx; nacljmp %ecx
 
 1:	testl	$0x200, %eax		/* Test sign.  */
 	jz	2f			/* If positive, jump.  */

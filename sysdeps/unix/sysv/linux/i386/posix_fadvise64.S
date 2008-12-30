@@ -90,7 +90,7 @@ ENTRY (BP_SYM (__posix_fadvise64_l64))
 	negl	%eax
 
 	/* Successful; return the syscall's value.  */
-	ret
+	popl %ecx; nacljmp %ecx
 #endif
 
 #if defined __NR_fadvise64 \
@@ -136,10 +136,10 @@ L(overflow):
 	negl	%eax
 
 	/* Successful; return the syscall's value.  */
-	ret
+	popl %ecx; nacljmp %ecx
 #else
 	movl	$ENOSYS, %eax
-	ret
+	popl %ecx; nacljmp %ecx
 #endif
 
 END (BP_SYM (__posix_fadvise64_l64))
@@ -149,12 +149,12 @@ END (BP_SYM (__posix_fadvise64_l64))
 ENTRY (__posix_fadvise64_l32)
 	DO_CALL (fadvise64, 5)
 	negl %eax
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END_ERRVAL (__posix_fadvise64_l32)
 #else
 ENTRY (BP_SYM (__posix_fadvise64_l32))
 	movl	$ENOSYS, %eax
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__posix_fadvise64_l32))
 #endif
 

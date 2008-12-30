@@ -59,7 +59,7 @@ ENTRY(__ieee754_scalb)
 	jne	4f
 	fscale
 	fstp	%st(1)
-	ret
+	popl %ecx; nacljmp %ecx
 
 	/* y is -inf */
 1:	fxam
@@ -77,7 +77,7 @@ ENTRY(__ieee754_scalb)
 	shrl	$27, %edx
 	addl	%edx, %eax
 	fldl	MOX(zero_nan, %eax, 1)
-	ret
+	popl %ecx; nacljmp %ecx
 
 	/* The result is NaN, but we must not raise an exception.
 	   So use a variable.  */
@@ -87,16 +87,16 @@ ENTRY(__ieee754_scalb)
 	LOAD_PIC_REG (cx)
 #endif
 	fldl	MO(nan)
-	ret
+	popl %ecx; nacljmp %ecx
 
 	/* The first parameter is a NaN.  Return it.  */
 3:	fstp	%st(1)
-	ret
+	popl %ecx; nacljmp %ecx
 
 	/* Return NaN and raise the invalid exception.  */
 4:	fstp	%st
 	fstp	%st
 	fldz
 	fdiv	%st
-	ret
+	popl %ecx; nacljmp %ecx
 END(__ieee754_scalb)

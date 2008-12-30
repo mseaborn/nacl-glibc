@@ -48,7 +48,7 @@ C_LABEL(_mcount)
 	popl %edx
 	popl %ecx
 	popl %eax
-	ret
+	popl %ecx; nacljmp %ecx
 	ASM_SIZE_DIRECTIVE(C_SYMBOL_NAME(_mcount))
 
 #undef mcount

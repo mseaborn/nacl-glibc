@@ -44,7 +44,7 @@ ENTRY (BP_SYM (__sincosf))
 	fstps	(%ecx)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 
 	.align ALIGNARG(4)
 1:	fldpi
@@ -60,6 +60,6 @@ ENTRY (BP_SYM (__sincosf))
 	fstps	(%ecx)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__sincosf))
 weak_alias (BP_SYM (__sincosf), BP_SYM (sincosf))

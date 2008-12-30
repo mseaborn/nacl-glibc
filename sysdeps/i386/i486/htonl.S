@@ -29,7 +29,7 @@
 ENTRY (htonl)
 	movl	4(%esp), %eax
 	bswap	%eax
-	ret
+	popl %ecx; nacljmp %ecx
 END (htonl)
 
 weak_alias (htonl, ntohl)

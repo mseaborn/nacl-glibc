@@ -68,5 +68,5 @@ ENTRY (sync_file_range)
 	jmp	SYSCALL_ERROR_LABEL
 #endif
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END (sync_file_range)

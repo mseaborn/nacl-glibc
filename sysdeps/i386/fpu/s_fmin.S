@@ -39,6 +39,6 @@ ENTRY(__fmin)
 1:	fxch	%st(1)
 2:	fstp	%st(1)
 
-	ret
+	popl %ecx; nacljmp %ecx
 END(__fmin)
 weak_alias (__fmin, fmin)

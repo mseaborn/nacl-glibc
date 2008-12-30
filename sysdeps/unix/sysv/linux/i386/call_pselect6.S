@@ -60,6 +60,6 @@ ENTRY(__call_pselect6)
 	cfi_adjust_cfa_offset (-4)
 	cfi_restore (ebx)
 
-	ret
+	popl %ecx; nacljmp %ecx
 END(__call_pselect6)
 #endif

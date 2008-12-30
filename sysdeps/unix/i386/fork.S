@@ -25,7 +25,7 @@ SYSCALL__ (fork, 0)
 	   R0&-1==R0, and the child gets R0&0==0.  */
 	decl r1
 	andl r1, r0
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END (__fork)
 libc_hidden_def (__fork)
 

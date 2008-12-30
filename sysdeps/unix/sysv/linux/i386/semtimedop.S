@@ -67,7 +67,7 @@ ENTRY (BP_SYM (semtimedop))
 
 	/* Successful; return the syscall's value.  */
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 
 #ifdef PIC
 	.align	4

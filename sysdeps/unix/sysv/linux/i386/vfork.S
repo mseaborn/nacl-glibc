@@ -63,7 +63,7 @@ ENTRY (__vfork)
 	jae	.Lerror
 # endif
 
-	ret
+	popl %ecx; nacljmp %ecx
 
 # ifndef __ASSUME_VFORK_SYSCALL
 .Lerror:
@@ -81,7 +81,7 @@ ENTRY (__vfork)
 	cmpl	$-4095, %eax
 	jae	SYSCALL_ERROR_LABEL
 .Lpseudo_end:
-	ret
+	popl %ecx; nacljmp %ecx
 #endif
 PSEUDO_END (__vfork)
 libc_hidden_def (__vfork)

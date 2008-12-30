@@ -25,6 +25,6 @@ PSEUDO_NOERRNO (time, time, 1)
 	je L(null)
 	movl %eax, (%edx)	/* Yes; store the time there.  */
 L(null):
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END_NOERRNO (time)
 libc_hidden_def (time)

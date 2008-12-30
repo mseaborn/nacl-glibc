@@ -85,7 +85,7 @@ ENTRY(__makecontext)
 	movl	$L(exitcode), (%edx)
 #endif
 	/* 'makecontext' returns no value.  */
-	ret
+	popl %ecx; nacljmp %ecx
 
 	/* This is the helper code which gets called if a function which
 	   is registered with 'makecontext' returns.  In this case we

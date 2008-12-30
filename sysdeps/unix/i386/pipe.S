@@ -23,7 +23,7 @@ SYSCALL__ (pipe, 1)
 	movl %eax, (scratch)
 	movl r1, 4(scratch)
 	xorl %eax, %eax
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END (__pipe)
 
 libc_hidden_def (__pipe)

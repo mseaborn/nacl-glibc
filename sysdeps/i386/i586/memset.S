@@ -120,7 +120,7 @@ L(2):	shrl	$2, %ecx	/* convert byte count to longword count */
 
 	LEAVE
 #if BZERO_P
-	ret
+	popl %ecx; nacljmp %ecx
 #else
 	RET_PTR
 #endif

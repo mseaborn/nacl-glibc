@@ -154,7 +154,7 @@ L(end2):
 	cfi_restore (edi)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 
 /* We loop from least significant end of the arrays, which is only
    permissible if the source and destination don't overlap, since the
@@ -263,5 +263,5 @@ L(L1):	movl	%edx,(%edi)		/* store last limb */
 	cfi_restore (edi)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__mpn_rshift))

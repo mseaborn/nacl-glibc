@@ -74,7 +74,7 @@ ENTRY(do_paccept)
 	.previous
 #endif
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END(do_paccept)
 
 
@@ -96,7 +96,7 @@ ENTRY (paccept)
 	movl %edx, %ebx
 	cfi_restore (3)
 
-	ret
+	popl %ecx; nacljmp %ecx
 
 #ifdef CENABLE
 	/* We need one more register.  */
@@ -130,6 +130,6 @@ ENTRY (paccept)
 	cfi_adjust_cfa_offset(-4)
 
 	/* Successful; return the syscall's value.  */
-	ret
+	popl %ecx; nacljmp %ecx
 #endif
 PSEUDO_END (paccept)

@@ -86,7 +86,7 @@ ENTRY(__asinhf)
 4:	ret
 
 7:	flds	4(%esp)
-	ret
+	popl %ecx; nacljmp %ecx
 
 6:	faddl	MO(one)
 	fyl2x
@@ -105,7 +105,7 @@ ENTRY(__asinhf)
 4:	fld	%st			// x : x
 	faddl	MO(huge)		// huge+x : x
 	fstp	%st(0)			// x
-	ret
+	popl %ecx; nacljmp %ecx
 
 	// |x| > 2^14 => y = sign(x) * (log(|x|) + log(2))
 	.align ALIGNARG(4)

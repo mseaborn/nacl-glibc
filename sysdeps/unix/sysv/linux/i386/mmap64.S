@@ -102,7 +102,7 @@ L(do_syscall):
 
 	/* Successful; return the syscall's value.  */
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 
 	cfi_adjust_cfa_offset (16)
 	cfi_rel_offset (ebp, 12)
@@ -155,7 +155,7 @@ L(einval):
 #ifndef __NR_mmap2
 L(pseudo_end):
 #endif
-	ret
+	popl %ecx; nacljmp %ecx
 
 	cfi_register (ebx, edx)
 L(einval2):

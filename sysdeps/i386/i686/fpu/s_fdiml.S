@@ -34,11 +34,11 @@ ENTRY(__fdiml)
 	jmp	2f
 
 3:	fsubrp	%st, %st(1)
-	ret
+	popl %ecx; nacljmp %ecx
 
 1:	fucomi	%st(0), %st
 	fcmovnu	%st(1), %st
 2:	fstp	%st(1)
-	ret
+	popl %ecx; nacljmp %ecx
 END(__fdiml)
 weak_alias (__fdiml, fdiml)

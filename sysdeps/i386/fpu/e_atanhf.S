@@ -105,5 +105,5 @@ ENTRY(__ieee754_atanhf)
 
 	// x == NaN
 5:	flds	4(%esp)
-	ret
+	popl %ecx; nacljmp %ecx
 END(__ieee754_atanhf)

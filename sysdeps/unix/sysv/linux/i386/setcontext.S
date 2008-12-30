@@ -91,7 +91,7 @@ ENTRY(__setcontext)
 	   to it.  */
 
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END(__setcontext)
 
 weak_alias (__setcontext, setcontext)

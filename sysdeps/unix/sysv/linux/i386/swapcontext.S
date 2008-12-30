@@ -106,7 +106,7 @@ ENTRY(__swapcontext)
 	   to it.  */
 
 L(pseudo_end):
-	ret
+	popl %ecx; nacljmp %ecx
 PSEUDO_END(__swapcontext)
 
 weak_alias (__swapcontext, swapcontext)

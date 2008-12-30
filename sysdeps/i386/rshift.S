@@ -95,7 +95,7 @@ L(1):	movl	(%esi,%edx,4),%eax
 	cfi_restore (edi)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 
 	cfi_adjust_cfa_offset (12)
 	cfi_rel_offset (edi, 8)
@@ -115,5 +115,5 @@ L(end):	shrl	%cl,%ebx		/* compute most significant limb */
 	cfi_restore (edi)
 
 	LEAVE
-	ret
+	popl %ecx; nacljmp %ecx
 END (BP_SYM (__mpn_rshift))

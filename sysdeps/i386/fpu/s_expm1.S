@@ -75,7 +75,7 @@ ENTRY(__expm1)
 	fsubrl	MO(one)		// 1-2^int(log2(e)*x) : int(log2(e)*x) : 2^(log2(e)*x)-2^int(log2(e)*x)
 	fstp	%st(1)		// 1-2^int(log2(e)*x) : 2^(log2(e)*x)-2^int(log2(e)*x)
 	fsubrp	%st, %st(1)	// 2^(log2(e)*x)
-	ret
+	popl %ecx; nacljmp %ecx
 
 2:	testl	$0x200, %eax	// Test sign.
 	jz	3f		// If positive, jump.

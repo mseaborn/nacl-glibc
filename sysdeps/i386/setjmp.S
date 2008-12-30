@@ -54,7 +54,7 @@ ENTRY (BP_SYM (__sigsetjmp))
 #if defined NOT_IN_libc && defined IS_IN_rtld
 	/* In ld.so we never save the signal mask.  */
 	xorl %eax, %eax
-	ret
+	popl %ecx; nacljmp %ecx
 #else
 	/* Make a tail call to __sigjmp_save; it takes the same args.  */
 	jmp __sigjmp_save

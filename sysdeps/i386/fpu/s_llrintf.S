@@ -32,6 +32,6 @@ ENTRY(__llrintf)
 	cfi_adjust_cfa_offset (-4)
 	popl	%edx
 	cfi_adjust_cfa_offset (-4)
-	ret
+	popl %ecx; nacljmp %ecx
 END(__llrintf)
 weak_alias (__llrintf, llrintf)
