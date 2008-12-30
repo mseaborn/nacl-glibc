@@ -3,7 +3,7 @@
 
 int main()
 {
-  write(1, "hello\n", 6);
-  //printf("Hello world %i\n", 42);
+  write(1, "Hello (via write())\n", 20);
+  printf("Hello world (%s)\n", "via printf()");
   return 0;
 }
