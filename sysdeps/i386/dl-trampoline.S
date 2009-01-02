@@ -41,7 +41,7 @@ _dl_runtime_resolve:
 	movl %eax, (%esp)	# Store the function address.
 	movl 4(%esp), %eax
 # Fix this when we are in a position to test it.
-	call abort
+	hlt
 #	ret $12			# Jump to function address.
 	cfi_endproc
 	.size _dl_runtime_resolve, .-_dl_runtime_resolve
@@ -89,7 +89,7 @@ _dl_runtime_profile:
 	movl %eax, (%esp)	# Store the function address.
 	movl 4(%esp), %eax
 # Fix this when we are in a position to test it.
-	call abort
+	hlt
 #	ret $20			# Jump to function address.
 
 	/*
