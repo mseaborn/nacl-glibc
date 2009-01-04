@@ -6,12 +6,9 @@
 void *__curbrk = 0;
 weak_alias (__curbrk, ___brk_addr)
 
-__asm__(".global __NaClSysBrk; __NaClSysBrk = 0x1280");
-
-void *__NaClSysBrk(void *addr);
-
 int __brk (void *addr)
 {
+  void *(*__NaClSysBrk)(void *addr) = 0x1280;
   __curbrk = __NaClSysBrk(addr);
   return 0;
 }

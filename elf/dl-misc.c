@@ -247,10 +247,10 @@ _dl_debug_vdprintf (int fd, int tag_p, const char *fmt, va_list arg)
     }
 
   /* Finally write the result.  */
-#ifdef HAVE_INLINED_SYSCALLS
+#if defined(HAVE_INLINED_SYSCALLS) && 0
   INTERNAL_SYSCALL_DECL (err);
   INTERNAL_SYSCALL (writev, err, 3, fd, &iov, niov);
-#elif RTLD_PRIVATE_ERRNO
+#elif defined(RTLD_PRIVATE_ERRNO) && 0
   /* We have to take this lock just to be sure we don't clobber the private
      errno when it's being used by another thread that cares about it.
      Yet we must be sure not to try calling the lock functions before
