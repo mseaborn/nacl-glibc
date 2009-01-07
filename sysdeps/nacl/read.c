@@ -1,0 +1,22 @@
+
+#include <errno.h>
+#include <unistd.h>
+#include <stddef.h>
+
+#include <nacl_syscalls.h>
+
+
+ssize_t __libc_read (int fd, void *buf, size_t size)
+{
+  int (*nacl_read)(int fd, void *buf, size_t size) = 
+    NACL_SYSCALL_ADDR(NACL_sys_read);
+  int result = nacl_read(fd, buf, size);
+  if (result < 0)
+    errno = -result;
+  return result;
+}
+libc_hidden_def (__libc_read)
+weak_alias (__libc_read, __read)
+libc_hidden_weak (__read)
+weak_alias (__libc_read, read)
+strong_alias (__libc_read, __read_nocancel)
