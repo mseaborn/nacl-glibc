@@ -20,8 +20,10 @@ int __open(const char *filename, int flags, ...)
     va_end(arg);
   }
   int result = nacl_open(filename, flags, mode);
-  if (result < 0)
+  if (result < 0) {
     errno = -result;
+    return -1;
+  }
   return result;
 }
 libc_hidden_def (__open)

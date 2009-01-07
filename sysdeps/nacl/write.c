@@ -11,8 +11,10 @@ int __write(int desc, void const *buf, size_t count)
   int (*__gnacl_write)(int desc, void const *buf, size_t count) =
     NACL_SYSCALL_ADDR(NACL_sys_write);
   int result = __gnacl_write(desc, buf, count);
-  if (result < 0)
+  if (result < 0) {
     errno = -result;
+    return -1;
+  }
   return result;
 }
 libc_hidden_def (__write)

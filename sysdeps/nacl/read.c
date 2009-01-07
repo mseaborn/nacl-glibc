@@ -11,8 +11,10 @@ ssize_t __libc_read (int fd, void *buf, size_t size)
   int (*nacl_read)(int fd, void *buf, size_t size) = 
     NACL_SYSCALL_ADDR(NACL_sys_read);
   int result = nacl_read(fd, buf, size);
-  if (result < 0)
+  if (result < 0) {
     errno = -result;
+    return -1;
+  }
   return result;
 }
 libc_hidden_def (__libc_read)

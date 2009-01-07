@@ -9,8 +9,10 @@ int __close (int fd)
 {
   int (*nacl_close)(int fd) = NACL_SYSCALL_ADDR(NACL_sys_close);
   int result = nacl_close(fd);
-  if (result < 0)
+  if (result < 0) {
     errno = -result;
+    return -1;
+  }
   return result;
 }
 libc_hidden_def (__close)
