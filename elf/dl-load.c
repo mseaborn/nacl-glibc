@@ -1655,6 +1655,8 @@ open_verify (const char *name, struct filebuf *fbp, struct link_map *loader,
 	  lose (errval, fd, name, NULL, NULL, errstring, NULL);
 	}
 
+      /* Skip these checks for now */
+#if 0
       /* See whether the ELF header is what we expect.  */
       if (__builtin_expect (! VALID_ELF_HEADER (ehdr->e_ident, expected,
 						EI_PAD), 0))
@@ -1704,6 +1706,7 @@ open_verify (const char *name, struct filebuf *fbp, struct link_map *loader,
 
 	  goto call_lose;
 	}
+#endif
 
       if (__builtin_expect (ehdr->e_version, EV_CURRENT) != EV_CURRENT)
 	{
