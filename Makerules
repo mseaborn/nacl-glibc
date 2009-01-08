@@ -499,7 +499,8 @@ $(common-objpfx)shlib.lds: $(common-objpfx)config.make $(..)Makerules
 common-generated += shlib.lds
 
 define build-shlib
-$(build-shlib-helper) -o $@ -T $(common-objpfx)shlib.lds \
+# -T $(common-objpfx)shlib.lds
+$(build-shlib-helper) -o $@ \
 	  $(csu-objpfx)abi-note.o $(build-shlib-objlist)
 endef
 else
@@ -603,7 +604,7 @@ $(common-objpfx)libc.so: $(elfobjdir)/soinit.os \
 			 $(elfobjdir)/sofini.os \
 			 $(elfobjdir)/interp.os $(elfobjdir)/ld.so \
 			 $(common-objpfx)shlib.lds
-	$(build-shlib)
+	$(build-shlib) -T elf_i386.xs
 ifeq ($(versioning),yes)
 $(common-objpfx)libc.so: $(common-objpfx)libc.map
 endif
