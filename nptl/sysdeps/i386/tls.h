@@ -191,8 +191,7 @@ union user_desc_init
 # endif
 #endif
 
-__asm__(".global __gnacl_tls_init; __gnacl_tls_init = 0x1a40 ");
-int __gnacl_tls_init(void const *buf, size_t size);
+#include <nacl_syscalls.h>
 
 /* Code to initially initialize the thread pointer.  This might need
    special attention since 'errno' is not yet available and if the
@@ -207,7 +206,9 @@ int __gnacl_tls_init(void const *buf, size_t size);
      _head->self = _thrdescr;						      \
      /* New syscall handling support.  */				      \
      INIT_SYSINFO;							      \
-     _result = __gnacl_tls_init (_thrdescr, 100);			      \
+     static int (*nacl_tls_init)(void const *buf, size_t size) =	      \
+       NACL_SYSCALL_ADDR(NACL_sys_tls_init);				      \
+     _result = nacl_tls_init (_thrdescr, 100);				      \
      _result == 0 ? NULL						      \
      : "tls_init failed when setting up thread-local storage\n"; })
 
