@@ -533,6 +533,7 @@ asm (".L__X'%ebx = 1\n\t"
 # define EXTRAVAR_5
 #endif
 
+#if 0
 /* Consistency check for position-independent code.  */
 #ifdef __PIC__
 # define check_consistency()						      \
@@ -554,6 +555,7 @@ asm (".L__X'%ebx = 1\n\t"
 	".previous"							      \
 	: "=c" (__res));						      \
      __res; })
+#endif
 #endif
 
 #endif	/* __ASSEMBLER__ */
