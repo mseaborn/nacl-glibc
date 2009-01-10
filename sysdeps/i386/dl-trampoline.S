@@ -25,24 +25,18 @@
 	cfi_startproc
 	.align 16
 _dl_runtime_resolve:
+	# This no longer preserves registers %eax, %ecx and %edx, but we
+	# cannot preserve all registers because at least one is needed
+	# to perform address alignment when jumping in NaCl.
+	# This means functions called via the PLT can't use the "regparm"
+	# attribute.  See "regparm" in the gcc docs.
 	cfi_adjust_cfa_offset (8)
-	pushl %eax		# Preserve registers otherwise clobbered.
-	cfi_adjust_cfa_offset (4)
-	pushl %ecx
-	cfi_adjust_cfa_offset (4)
-	pushl %edx
-	cfi_adjust_cfa_offset (4)
-	movl 16(%esp), %edx	# Copy args pushed by PLT in register.  Note
-	movl 12(%esp), %eax	# that `fixup' takes its parameters in regs.
-	call _dl_fixup		# Call resolver.
-	popl %edx		# Get register content back.
-	cfi_adjust_cfa_offset (-4)
-	movl (%esp), %ecx
-	movl %eax, (%esp)	# Store the function address.
-	movl 4(%esp), %eax
-# Fix this when we are in a position to test it.
-	hlt
-#	ret $12			# Jump to function address.
+	popl %eax
+ 	cfi_adjust_cfa_offset (-4)
+	popl %edx
+ 	cfi_adjust_cfa_offset (-4)
+	call _dl_fixup
+	nacljmp %eax
 	cfi_endproc
 	.size _dl_runtime_resolve, .-_dl_runtime_resolve
 
