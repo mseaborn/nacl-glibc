@@ -4,12 +4,42 @@ OUTPUT_FORMAT("elf32-nacl", "elf32-nacl",
 OUTPUT_ARCH(i386)
 ENTRY(_start)
 SEARCH_DIR("/usr/i386-linux-gnu/lib32"); SEARCH_DIR("/usr/local/lib32"); SEARCH_DIR("/lib32"); SEARCH_DIR("/usr/lib32"); SEARCH_DIR("/usr/i386-linux-gnu/lib"); SEARCH_DIR("/usr/local/lib"); SEARCH_DIR("/lib"); SEARCH_DIR("/usr/lib");
+PHDRS
+{
+  /* TODO: put headers in a separate, non-executable PT_LOAD segment. */
+  segtext    PT_LOAD FLAGS(5) FILEHDR PHDRS ;       /* read + execute */
+  segrodata  PT_LOAD FLAGS(4) ;       /* read */
+  segdata    PT_LOAD FLAGS(6) ;       /* read + write */
+  dynamic    PT_DYNAMIC FLAGS(6) ;
+  /* TODO: do we need a stack? */
+}
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */
   _begin = 0x0;
   . = 0x0 + SIZEOF_HEADERS;
-  .note.gnu.build-id : { *(.note.gnu.build-id) }
+  . = ALIGN(CONSTANT (MAXPAGESIZE)); /* nacl wants page alignment */
+  .init           : SUBALIGN(32)
+  {
+    KEEP (*(.init))
+  } :segtext =0x90909090
+  .plt            : { *(.plt) }
+  .text           : SUBALIGN(32)
+  {
+    *(.text .stub .text.* .gnu.linkonce.t.*)
+    KEEP (*(.text.*personality*))
+    /* .gnu.warning sections are handled specially by elf32.em.  */
+    *(.gnu.warning)
+  } =0x90909090
+  .fini           : SUBALIGN(32)
+  {
+    KEEP (*(.fini))
+  } =0x90909090
+  PROVIDE (__etext = .);
+  PROVIDE (_etext = .);
+  PROVIDE (etext = .);
+  . = ALIGN(CONSTANT (MAXPAGESIZE)); /* nacl wants page alignment */
+  .note.gnu.build-id : { *(.note.gnu.build-id) } :segrodata
   .hash           : { *(.hash) }
   .gnu.hash       : { *(.gnu.hash) }
   .dynsym         : { *(.dynsym) }
@@ -43,26 +73,7 @@ SECTIONS
   .rela.bss       : { *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*) }
   .rel.plt        : { *(.rel.plt) }
   .rela.plt       : { *(.rela.plt) }
-  .init           : SUBALIGN(32)
-  {
-    KEEP (*(.init))
-  } =0x90909090
-  .plt            : { *(.plt) }
-  .text           : SUBALIGN(32)
-  {
-    *(.text .stub .text.* .gnu.linkonce.t.*)
-    KEEP (*(.text.*personality*))
-    /* .gnu.warning sections are handled specially by elf32.em.  */
-    *(.gnu.warning)
-  } =0x90909090
-  .fini           : SUBALIGN(32)
-  {
-    KEEP (*(.fini))
-  } =0x90909090
-  PROVIDE (__etext = .);
-  PROVIDE (_etext = .);
-  PROVIDE (etext = .);
-  .rodata         : { *(.rodata .rodata.* .gnu.linkonce.r.*) }
+  .rodata         : { *(.rodata .rodata.* .gnu.linkonce.r.*) } :segrodata
   .rodata1        : { *(.rodata1) }
   .eh_frame_hdr : { *(.eh_frame_hdr) }
   .eh_frame       : ONLY_IF_RO { KEEP (*(.eh_frame)) }
@@ -79,7 +90,7 @@ SECTIONS
   .preinit_array     :
   {
     KEEP (*(.preinit_array))
-  }
+  } :segdata
   .init_array     :
   {
      KEEP (*(SORT(.init_array.*)))
@@ -121,8 +132,8 @@ SECTIONS
   }
   .jcr            : { KEEP (*(.jcr)) }
   .data.rel.ro : { *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*) *(.data.rel.ro* .gnu.linkonce.d.rel.ro.*) }
-  .dynamic        : { *(.dynamic) }
-  .got            : { *(.got) }
+  .dynamic        : { *(.dynamic) } :dynamic :segdata
+  .got            : { *(.got) } :segdata
   . = DATA_SEGMENT_RELRO_END (12, .);
   .got.plt        : { *(.got.plt) }
   . = ALIGN(CONSTANT (MAXPAGESIZE)); /* nacl wants page alignment */
