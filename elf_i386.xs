@@ -11,6 +11,8 @@ PHDRS
   segrodata  PT_LOAD FLAGS(4) ;       /* read */
   segdata    PT_LOAD FLAGS(6) ;       /* read + write */
   dynamic    PT_DYNAMIC FLAGS(6) ;
+  stack      PT_GNU_STACK FLAGS(6) ;
+  tls        PT_TLS FLAGS(4) ;
   /* TODO: do we need a stack? */
 }
 SECTIONS
@@ -85,7 +87,7 @@ SECTIONS
   .eh_frame       : ONLY_IF_RW { KEEP (*(.eh_frame)) }
   .gcc_except_table   : ONLY_IF_RW { *(.gcc_except_table .gcc_except_table.*) }
   /* Thread Local Storage sections  */
-  .tdata	  : { *(.tdata .tdata.* .gnu.linkonce.td.*) }
+  .tdata	  : { *(.tdata .tdata.* .gnu.linkonce.td.*) } :segrodata :tls
   .tbss		  : { *(.tbss .tbss.* .gnu.linkonce.tb.*) *(.tcommon) }
   .preinit_array     :
   {
