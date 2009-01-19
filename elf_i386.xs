@@ -7,7 +7,8 @@ SEARCH_DIR("/usr/i386-linux-gnu/lib32"); SEARCH_DIR("/usr/local/lib32"); SEARCH_
 PHDRS
 {
   /* TODO: put headers in a separate, non-executable PT_LOAD segment. */
-  segtext    PT_LOAD FLAGS(5) FILEHDR PHDRS ;       /* read + execute */
+  segheaders PT_LOAD FLAGS(4) FILEHDR PHDRS ;       /* read */
+  segtext    PT_LOAD FLAGS(5) ;       /* read + execute */
   segrodata  PT_LOAD FLAGS(4) ;       /* read */
   segdata    PT_LOAD FLAGS(6) ;       /* read + write */
   dynamic    PT_DYNAMIC FLAGS(6) ;
