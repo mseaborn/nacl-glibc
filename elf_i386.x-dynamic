@@ -43,9 +43,11 @@ SECTIONS
   .rela.bss       : { *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*) }
   .rel.plt        : { *(.rel.plt) }
   .rela.plt       : { *(.rela.plt) }
+  . = ALIGN(CONSTANT (MAXPAGESIZE)); /* nacl wants page alignment */
   .init           :
   {
     KEEP (*(.init))
+    . = ALIGN(32); /* ensures NOP fill */
   } =0x90909090
   .plt            : { *(.plt) }
   .text           :
@@ -58,6 +60,8 @@ SECTIONS
   .fini           :
   {
     KEEP (*(.fini))
+    /* Putting alignment inside section ensures we get NOP fill */
+    . = ALIGN(CONSTANT (MAXPAGESIZE)); /* nacl wants page alignment */
   } =0x90909090
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
