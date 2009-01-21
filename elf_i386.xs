@@ -33,15 +33,16 @@ SECTIONS
     KEEP (*(.text.*personality*))
     /* .gnu.warning sections are handled specially by elf32.em.  */
     *(.gnu.warning)
-  } =0x90909090
-  .fini           : SUBALIGN(32)
-  {
+    /* Putting .fini here makes the align pad correctly when .fini is empty.
+       Listing the __libc* sections is also necessary to make padding work. */
     KEEP (*(.fini))
+    *(__libc_freeres_fn)
+    *(__libc_thread_freeres_fn)
+    . = ALIGN(CONSTANT (MAXPAGESIZE)); /* nacl wants page alignment */
   } =0x90909090
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);
-  . = ALIGN(CONSTANT (MAXPAGESIZE)); /* nacl wants page alignment */
   .note.gnu.build-id : { *(.note.gnu.build-id) } :segrodata
   .hash           : { *(.hash) }
   .gnu.hash       : { *(.gnu.hash) }
