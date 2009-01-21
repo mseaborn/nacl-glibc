@@ -105,8 +105,11 @@ _dl_debug_vdprintf (int fd, int tag_p, const char *fmt, va_list arg)
 	  if (pid == 0)
 	    {
 	      char *p;
+#if 0
 	      pid = __getpid ();
 	      assert (pid >= 0 && sizeof (pid_t) <= 4);
+#endif
+	      pid = 1;
 	      p = _itoa (pid, &pidbuf[10], 10, 0);
 	      while (p > pidbuf)
 		*--p = ' ';

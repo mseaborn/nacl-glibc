@@ -193,7 +193,7 @@
 #  define ENTER_KERNEL call *_dl_sysinfo
 # endif
 #else
-# define ENTER_KERNEL int $0x80
+# define ENTER_KERNEL movl $-38, %eax
 #endif
 
 /* Linux takes system call arguments in registers:
@@ -416,8 +416,7 @@ asm (".L__X'%ebx = 1\n\t"
     EXTRAVAR_##nr							      \
     asm volatile (							      \
     LOADARGS_##nr							      \
-    "movl %1, %%eax\n\t"						      \
-    "int $0x80\n\t"							      \
+    "movl $-38, %%eax\n\t"						      \
     RESTOREARGS_##nr							      \
     : "=a" (resultvar)							      \
     : "i" (__NR_##name) ASMFMT_##nr(args) : "memory", "cc");		      \
@@ -428,7 +427,7 @@ asm (".L__X'%ebx = 1\n\t"
     EXTRAVAR_##nr							      \
     asm volatile (							      \
     LOADARGS_##nr							      \
-    "int $0x80\n\t"							      \
+    "movl $-38, %%eax\n\t"						      \
     RESTOREARGS_##nr							      \
     : "=a" (resultvar)							      \
     : "0" (name) ASMFMT_##nr(args) : "memory", "cc");			      \
