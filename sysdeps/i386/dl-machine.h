@@ -178,10 +178,10 @@ extern ElfW(Addr) _dl_profile_fixup (struct link_map *l,
 
 #define RTLD_START asm ("\n\
 	.text\n\
-	.align 16\n\
+	.p2align NACLENTRYALIGN\n\
 0:	movl (%esp), %ebx\n\
-	ret\n\
-	.align 16\n\
+	popl %ecx; nacljmp %ecx\n\
+	.p2align NACLENTRYALIGN\n\
 .globl _start\n\
 .globl _dl_start_user\n\
 _start:\n\
