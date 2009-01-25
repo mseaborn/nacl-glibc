@@ -112,7 +112,7 @@
 #  define LLL_ENTER_KERNEL	"call *_dl_sysinfo\n\t"
 # endif
 #else
-# define LLL_ENTER_KERNEL	"int $0x80\n\t"
+# define LLL_ENTER_KERNEL	"movl $-38, %%eax\n\t"
 #endif
 
 /* Delay in spinlock loop.  */
