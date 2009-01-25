@@ -101,3 +101,8 @@ mq_setattr	-	mq_getsetattr	i:ipp	__GI_mq_setattr	mq_setattr
 timerfd_create	EXTRA	timerfd_create	i:ii	timerfd_create
 timerfd_settime	EXTRA	timerfd_settime	i:iipp	timerfd_settime
 timerfd_gettime	EXTRA	timerfd_gettime	i:ip	timerfd_gettime
+
+# These are just listed for generating stubs, so arguments don't matter.
+umount		EXTRA	umount		i:s	__umount	umount
+umount2		EXTRA	umount2		i:si	__umount2	umount2
+clone		EXTRA	clone		i:	__clone	clone
