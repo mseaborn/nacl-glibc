@@ -92,9 +92,9 @@ nscd-cflags = -DIS_IN_nscd=1 -D_FORTIFY_SOURCE=2
 ifeq (yesyes,$(have-fpie)$(build-shared))
 nscd-cflags += $(pie-ccflag)
 endif
-ifeq (yes,$(have-ssp))
-nscd-cflags += -fstack-protector
-endif
+# ifeq (yes,$(have-ssp))
+# nscd-cflags += -fstack-protector
+# endif
 
 CFLAGS-nscd.c += $(nscd-cflags)
 CFLAGS-connections.c += $(nscd-cflags)
