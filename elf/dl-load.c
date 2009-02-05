@@ -869,6 +869,7 @@ _dl_map_object_from_fd (const char *name, int fd, struct filebuf *fbp,
 	    make_consistent ? r : NULL);
     }
 
+#if 0
   /* Look again to see if the real name matched another already loaded.  */
   for (l = GL(dl_ns)[nsid]._ns_loaded; l; l = l->l_next)
     if (l->l_removed == 0 && l->l_ino == st.st_ino && l->l_dev == st.st_dev)
@@ -884,6 +885,7 @@ _dl_map_object_from_fd (const char *name, int fd, struct filebuf *fbp,
 
 	return l;
       }
+#endif
 
 #ifdef SHARED
   /* When loading into a namespace other than the base one we must
