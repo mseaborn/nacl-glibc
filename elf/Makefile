@@ -310,7 +310,7 @@ $(objpfx)ld.so: $(objpfx)librtld.os $(ld-map)
 		  $(LDFLAGS-rtld) -Wl,-z,defs $(z-now-$(bind-now))	\
 		  $(filter-out $(map-file),$^) $(load-map-file)		\
 		  -Wl,-Map,$(objpfx)ld.so.map				\
-		  -Wl,-soname=$(rtld-installed-name) -T ../elf_i386.xs
+		  -Wl,-soname=$(rtld-installed-name)
 	rm -f $@.lds
 	readelf -s $@ \
 	  | $(AWK) '($$7 ~ /^UND(|EF)$$/ && $$1 != "0:" && $$4 != "REGISTER") { print; p=1 } END { exit p != 0 }'

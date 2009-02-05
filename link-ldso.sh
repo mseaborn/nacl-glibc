@@ -10,4 +10,4 @@ cd build
     -Wl,-z,relro -Wl,--hash-style=both -Wl,-z,defs 	\
     elf/librtld.os -Wl,--version-script=ld.map		\
     -Wl,-Map,elf/ld.so.map				\
-    -Wl,-soname=ld-linux.so.2 -T ../elf_i386.xs
+    -Wl,-soname=ld-linux.so.2 -L../ld

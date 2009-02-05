@@ -604,7 +604,7 @@ $(common-objpfx)libc.so: $(elfobjdir)/soinit.os \
 			 $(elfobjdir)/sofini.os \
 			 $(elfobjdir)/interp.os $(elfobjdir)/ld.so \
 			 $(common-objpfx)shlib.lds
-	$(build-shlib) -T elf_i386.xs
+	$(build-shlib)
 ifeq ($(versioning),yes)
 $(common-objpfx)libc.so: $(common-objpfx)libc.map
 endif
