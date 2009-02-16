@@ -230,7 +230,7 @@ _dl_start_user:\n\
 	# Restore %esp _start expects.\n\
 	movl (%esp), %esp\n\
 	# Jump to the user's entry point.\n\
-	jmp *%edi\n\
+	nacljmp %edi\n\
 	.previous\n\
 ");
 
