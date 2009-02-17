@@ -74,5 +74,5 @@ ENTRY (BP_SYM (__longjmp))
 	movl (JB_SP*4)(%ecx), %esp
 #endif
 	/* Jump to saved PC.  */
-     	jmp *%edx
+     	nacljmp %edx
 END (BP_SYM (__longjmp))
