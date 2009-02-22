@@ -1,11 +1,21 @@
 #!/bin/bash
 
-# This script is a shortcut for building libc.so.
+# This script is a shortcut for building libc.so, the dynamic linker,
+# and some other libraries.
 # It's faster than running make on glibc.
 
 set -e
 
 BUILD=build
+
+echo - ld.so
+../tools_bin/linux/sdk/nacl-sdk/bin/nacl-gcc \
+    -nostdlib -nostartfiles -shared \
+    -o $BUILD/elf/ld.so			\
+    -Wl,-z,relro -Wl,--hash-style=both -Wl,-z,defs 	\
+    $BUILD/elf/librtld.os -Wl,--version-script=$BUILD/ld.map		\
+    -Wl,-Map,$BUILD/elf/ld.so.map				\
+    -Wl,-soname=ld-linux.so.2 -Lld
 
 echo - libc_pic.os
 ../tools_bin/linux/sdk/nacl-sdk/bin/nacl-gcc \
