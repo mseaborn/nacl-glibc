@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+top=$(cd $(dirname $0)/.. && pwd)
+glibc_source=$(cd $(dirname $0) && pwd)
+glibc=$top/install
+
+exec $top/tools_bin/linux/sdk/nacl-sdk/bin/nacl-gcc \
+    -isystem $glibc/include -isystem $glibc_source/kernel-headers \
+    -B$glibc/lib -L$glibc/lib \
+    -L$glibc_source/ld \
+    "$@"
