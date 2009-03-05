@@ -25,6 +25,7 @@ SECTIONS
   .init           : SUBALIGN(32)
   {
     KEEP (*(.init))
+    . = ALIGN(32); /* ensure nop padding */
   } :segtext =0x90909090
   .plt            : { *(.plt) }
   .text           : SUBALIGN(32)
