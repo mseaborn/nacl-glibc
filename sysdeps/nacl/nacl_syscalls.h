@@ -115,4 +115,18 @@
   (0x1000 + ((syscall_number) * 32))
 
 
+struct NaClImcMsgIoVec {
+  void    *base;
+  size_t  length;
+};
+
+struct NaClImcMsgHdr {
+  struct NaClImcMsgIoVec  *iov;
+  size_t                  iov_length;
+  int                     *descv;
+  size_t                  desc_length;
+  int                     flags;
+};
+
+
 #endif /* NATIVE_CLIENT_SERVICE_RUNTIME_INCLUDE_BITS_NACL_SYSCALLS_H_ */
