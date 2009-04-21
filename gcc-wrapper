@@ -6,8 +6,17 @@ top=$(cd $(dirname $0)/.. && pwd)
 glibc_source=$(cd $(dirname $0) && pwd)
 glibc=$top/install
 
-exec $top/tools_bin/linux/sdk/nacl-sdk/bin/nacl-gcc \
+$top/tools_bin/linux/sdk/nacl-sdk/bin/nacl-gcc \
     -isystem $glibc/include -isystem $glibc_source/kernel-headers \
     -B$glibc/lib -L$glibc/lib \
     -L$glibc_source/ld \
     "$@"
+
+python -c '
+import os
+import sys
+import subprocess
+for i in range(1, len(sys.argv)):
+    if sys.argv[i] == "-o":
+        subprocess.check_call(["ncrewrite", "--nop", sys.argv[i+1]])
+' "$@"
