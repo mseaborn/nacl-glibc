@@ -353,6 +353,7 @@ _dl_start_final (void *arg, struct dl_start_final_info *info)
 }
 
 static ElfW(Addr) __attribute_used__ internal_function
+__attribute__ ((regparm (3), stdcall))
 _dl_start (void *arg)
 {
 #ifdef DONT_USE_BOOTSTRAP_MAP

@@ -144,7 +144,7 @@
 /* Defined to some form of __attribute__ ((...)) if the compiler supports
    a different, more efficient calling convention.  */
 #if defined USE_REGPARMS && !defined PROF && !defined __BOUNDED_POINTERS__
-# define internal_function __attribute__ ((regparm (3), stdcall))
+/* # define internal_function __attribute__ ((regparm (3), stdcall)) */
 #endif
 
 /* Linux specific: minimum supported kernel version.  */

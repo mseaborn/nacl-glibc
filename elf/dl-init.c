@@ -89,6 +89,7 @@ call_init (struct link_map *l, int argc, char **argv, char **env)
 
 void
 internal_function
+__attribute__ ((regparm (3), stdcall))
 _dl_init (struct link_map *main_map, int argc, char **argv, char **env)
 {
   ElfW(Dyn) *preinit_array = main_map->l_info[DT_PREINIT_ARRAY];
