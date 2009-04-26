@@ -112,7 +112,7 @@
 
 
 #define NACL_SYSCALL_ADDR(syscall_number) \
-  (0x1000 + ((syscall_number) * 32))
+  (0x10000 + ((syscall_number) * 32))
 
 
 struct NaClImcMsgIoVec {

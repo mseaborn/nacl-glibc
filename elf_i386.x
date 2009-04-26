@@ -17,7 +17,7 @@ PHDRS
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */
-  PROVIDE (__executable_start = 0x10000); . = 0x10000;
+  PROVIDE (__executable_start = 0x20000); . = 0x20000;
   .interp         : { *(.interp) }
   .note.gnu.build-id : { *(.note.gnu.build-id) }
   .hash           : { *(.hash) }
