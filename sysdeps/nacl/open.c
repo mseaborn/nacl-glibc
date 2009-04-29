@@ -31,8 +31,12 @@ static int nacl_open_rpc(const char *filename)
 
   struct NaClImcMsgIoVec iov;
   struct NaClImcMsgHdr msg;
-  iov.base = filename;
-  iov.length = strlen(filename);
+  int filename_len = strlen(filename);
+  char *msg_data = alloca(4 + filename_len);
+  memcpy(msg_data, "Open", 4);
+  memcpy(msg_data + 4, filename, filename_len);
+  iov.base = msg_data;
+  iov.length = 4 + filename_len;
   msg.iov = &iov;
   msg.iov_length = 1;
   msg.descv = NULL;
